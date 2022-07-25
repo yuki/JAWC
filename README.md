@@ -1,27 +1,23 @@
-# Jawc
+# JAWC
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+El nombre viene de "Just Another Wordle Clone".
 
-## Development server
+Esto es una prueba de concepto hecha en [Angular](https://angular.io) y como tarea optativa para la asignatura de Front-end del Máster en Desarrollo Web que estoy realizando.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Idea
+La idea es hacer un clon básico de Wordle. Voy a ir a la funcionalidad básica, pero que pueda ser ampliable:
+- Que se pueda modificar el número de intentos
+- Que se pueda elegir el tamaño de la palabra
 
-## Code scaffolding
+No creo que haga florituras de efectos, o capturar el teclado (probablemente deje el input).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+
+## Para desarrollar
+
+Como cualquier proyecto de Angular: `ng serve`. Navega a la dirección `http://localhost:4200/`. 
+
+
+### Para construir el proyecto
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

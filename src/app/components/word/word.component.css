@@ -1,0 +1,7 @@
+.letter {
+  min-width: 58px;
+  min-height: 55px;
+  border:2px solid #d3d6da;
+  padding: 14px 20px;
+  border-radius: 5px;
+}
