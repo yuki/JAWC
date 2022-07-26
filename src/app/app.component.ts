@@ -5,7 +5,11 @@ declare var get_word: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  host: {
+    // evento al presionar las teclas
+    '(document:keyup)': 'check_input($event.key)'
+  }
 })
 
 export class AppComponent  {
@@ -16,9 +20,13 @@ export class AppComponent  {
   //variables de inicio
   conf_tries:number = 6;
   conf_letters:number = 5;
+  /*
+    tries es un array bidimensional:
+      1ª: el número de intentos que ha elegido el usuario
+      2ª: por cada intento, la palabra introducida por el usuario y que hay que comprobar
+        - Esta parte tiene 2 posiciones también: 1ª la letra, 2ª si es OK, existe o no en la palabra.
+  */
   tries:any[] = new Array(this.conf_tries);
-  // puedo prescindir de esta variable?
-  positions: number[] = new Array(this.conf_letters);
 
   // para el estado del teclado
   keyboard:any = {
@@ -30,6 +38,7 @@ export class AppComponent  {
   word:string = "";
 
   actual_try:number = 0;
+  actual_word:string = '';
 
   letter = "";
 
@@ -39,11 +48,11 @@ export class AppComponent  {
    *
   */
   public start_game() {
+    //cogemos de los inputs lo elegido por el jugador
     this.conf_letters =  parseInt((document.getElementById('wlength') as HTMLInputElement).value);
     this.conf_tries =  parseInt((document.getElementById('tries') as HTMLInputElement).value);
 
     this.tries = new Array(this.conf_tries);
-    this.positions = new Array(this.conf_letters);
     this.reset_game();
     this.started = true;
   }
@@ -53,36 +62,26 @@ export class AppComponent  {
    *  vamos comprobando lo que se introduce en el campo de texto. (a extinguir)
    *
   */
-  public check_input(event:any) {
-    let word = (document.getElementById('word') as HTMLInputElement).value;
+  public check_input(key:any) {
+    if (this.started){
 
-    // rellenamos el array para que aparezcan las letras
-    for (let pos = 0; pos < this.conf_letters; pos++) {
-      this.tries[this.actual_try][pos] = new Array(2);
-      this.tries[this.actual_try][pos][0] = word.substring(pos,pos+1);
-    }
+      if (key != 'Enter' && key != 'Backspace' && key != 'DEL' && this.actual_word.length<this.conf_letters) {
+        this.actual_word += key;
+      } else if (key == 'Backspace' || key == 'DEL'){
+        this.actual_word = this.actual_word.substring(0,this.actual_word.length-1)
+      }
 
-    // sólo validamos la palabra si se da a enter
-    if (event.key == 'Enter') {
-      this.check_word(word);
-    }
-  }
+      this.actual_word = this.actual_word.toUpperCase();
 
-  /*
-   *  Se ejecuta cuando se pulsan las teclas del teclado en pantalla.
-   *
-  */
-  public check_pulsado(event:any){
-    let word = (document.getElementById('word') as HTMLInputElement).value;
-    if (event == 'ENTER'){
-      this.check_word(word);
-    } else if (event == 'DEL') {
-      (document.getElementById('word') as HTMLInputElement).value = word.substring(0,word.length-1)
-      this.check_input(event);
-    } else {
-      if ((document.getElementById('word') as HTMLInputElement).value.length < this.conf_letters){
-        (document.getElementById('word') as HTMLInputElement).value = (document.getElementById('word') as HTMLInputElement).value + event;
-        this.check_input(event);
+      // rellenamos el array para que aparezcan las letras
+      for (let pos = 0; pos < this.conf_letters; pos++) {
+
+        this.tries[this.actual_try][pos][0] = this.actual_word.substring(pos,pos+1);
+      }
+
+      // sólo validamos la palabra si se da a enter
+      if (key == 'Enter') {
+        this.check_word();
       }
     }
   }
@@ -91,10 +90,10 @@ export class AppComponent  {
    *  Comprueba letra a letra la palabra introducida para modificar el array que luego pinta
    *  las letras.
   */
-  public check_word(input_word:string) {
-    if (input_word.length == this.conf_letters ){
-      for (let pos = 0; pos < input_word.length; pos++) {
-        let letter=input_word.substring(pos,pos+1);
+  public check_word() {
+    if (this.actual_word.length == this.conf_letters ){
+      for (let pos = 0; pos < this.actual_word.length; pos++) {
+        let letter=this.actual_word.substring(pos,pos+1);
         this.tries[this.actual_try][pos][0] = letter;
 
         this.tries[this.actual_try][pos][1] = '';
@@ -114,8 +113,7 @@ export class AppComponent  {
       }
       // sumamos el intento
       this.actual_try +=1;
-      // limpiamos el input
-      (document.getElementById('word') as HTMLInputElement).value = '';
+
 
       /*
       FIXME: esto es una guarrada. En lugar de esperar 300ms habría que saber esperar a que la vista
@@ -123,11 +121,13 @@ export class AppComponent  {
       Pero como hace lo que necesito, ya se encargará mi "yo del futuro" de arreglarlo.
       */
       setTimeout(() => {
-        if (input_word == this.word) {
+        if (this.actual_word == this.word) {
           let play_again = confirm("HAS ACERTADO! Quieres volver a jugar");
           if (play_again) {
             this.reset_game();
           }
+        } else {
+          this.actual_word = '';
         }
 
         if (this.actual_try == this.conf_tries) {
@@ -136,21 +136,23 @@ export class AppComponent  {
             this.reset_game();
           }
         }
-      }, 500)
+      }, 300)
     }
   }
 
   /*
    *
-   * Reseteamos el juego. Reinicializamos las variables para que se pueda
+   * Reseteamos el juego. Reiniciamos las variables para que se pueda
    * volver a jugar.
    */
   public reset_game() {
+    this.actual_word = '';
     // Inicializamos array de intentos y palabras usadas:
     for (let i = 0; i < this.conf_tries; i++) {
       this.tries[i] = new Array(this.conf_letters);
       for (let j = 0; j < this.conf_letters; j++) {
-        this.tries[i][j] = " ";
+        this.tries[i][j] = new Array(2);
+        this.tries[i][j][0] = "";
       }
     }
 

@@ -8,18 +8,18 @@
     <div class="d-flex justify-content-center tries" *ngFor="let try of tries; let i = index">
         <app-letter class=""
             [letter]="tries[i][j]"
-            *ngFor="let position of positions; let j = index">
+            *ngFor="let position of try; let j = index">
         </app-letter>
     </div>
   </div>
 
-  <div class="container mb-2 justify-content-center col-1">
+  <div class="container mb-2 justify-content-center col-2">
     <div class="row">
-        <input type="text" class="form-control" id="word" placeholder="palabra" (keyup)="check_input($event)" [attr.maxlength]="conf_letters">
+        <input hidden  type="text" class="form-control" id="word" placeholder="palabra con tilde" (keyup)="check_input($event.key)" [attr.maxlength]="conf_letters" autofocus>
     </div>
   </div>
 
-  <app-keyboard [keyboard_status]="keyboard" (pulsado)="check_pulsado($event)"></app-keyboard>
+  <app-keyboard [keyboard_status]="keyboard" (pulsado)="check_input($event)"></app-keyboard>
 </div>
 
 <ng-template #elseblock>
