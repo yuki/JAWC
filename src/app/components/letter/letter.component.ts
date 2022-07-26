@@ -7,9 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LetterComponent implements OnInit {
 
-  @Input() letter:string = '';
-  @Input() row:any='';
-  @Input() pos:any='';
+  @Input() letter:any = '';
   constructor() { }
 
   ngOnInit(): void {

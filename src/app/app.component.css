@@ -1,9 +1,9 @@
 :root {
+  /* no funcionan las variables en  el componente letter ¿?*/
   --border: #d3d6da;
   --yellow: #c9b458;
   --green: #6aaa64;
   --gray: #86888a;
-
 }
 
 body {

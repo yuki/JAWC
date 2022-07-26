@@ -3,7 +3,26 @@
   max-width: 58px;
   min-height: 55px;
   max-height: 55px;
-  border:2px solid #d3d6da;
+  border: 2px solid #d3d6da;
   padding: 14px 20px;
   border-radius: 5px;
+  font-size: 28px;
+  color: white;
+  font-weight: bold;
+  font-family: monospace;
+  /* vertical alignment */
+  display: flex;
+  align-items: center;
+}
+
+.ok {
+  background-color: #6aaa64;
+}
+
+.exists {
+  background-color: #c9b458;
+}
+
+.no {
+  background-color: #86888a;
 }

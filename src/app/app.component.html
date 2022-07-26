@@ -8,8 +8,6 @@
     <div class="row tries" *ngFor="let try of tries; let i = index">
         <app-letter class="col"
             [letter]="tries[i][j]"
-            [row]="i"
-            [pos]="j"
             *ngFor="let position of positions; let j = index">
         </app-letter>
     </div>
@@ -20,7 +18,7 @@
       <div class="mb-2 col">
         <input type="text" class="form-control col-2" id="word" placeholder="palabra">
       </div>
-      <button type="button" class="btn btn-primary ps-6 col-4" (click)="check_word()">Probar</button>
+      <button type="button" class="btn btn-primary ps-6 col-4" (click)="check_input()">Probar</button>
     </div>
   </div>
 </div>
