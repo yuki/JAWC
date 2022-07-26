@@ -20,6 +20,12 @@ export class AppComponent  {
   // puedo prescindir de esta variable?
   positions: number[] = new Array(this.conf_letters);
 
+  // para el estado del teclado
+  keyboard:any = {
+    'Q':'','W':'','E':'','R':'','T':'','Y':'','U':'','I':'','O':'','P':'',
+    'A':'','S':'','D':'','F':'','G':'','H':'','J':'','K':'','L':'','Ñ':'',
+    'Z':'','X':'','C':'','V':'','B':'','N':'','M':''
+    }
   //palabra para acertar
   word:string = "";
 
@@ -72,13 +78,16 @@ export class AppComponent  {
 
       if (letter == this.word.substring(pos,pos+1)){
         this.tries[this.actual_try][pos][1] = 'ok';
+        this.keyboard[letter.toUpperCase()] = 'ok';
         continue;
       }
       if (this.word.includes(letter)){
         this.tries[this.actual_try][pos][1] = 'exists';
+        this.keyboard[letter.toUpperCase()] = 'exists';
         continue;
       }
       this.tries[this.actual_try][pos][1] = 'no';
+      this.keyboard[letter.toUpperCase()] = 'no';
     }
 
     /*

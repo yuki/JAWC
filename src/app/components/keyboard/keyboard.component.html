@@ -1,0 +1,11 @@
+
+<div class="container text-center p-2 col-7">
+  <div class="">
+    <div class="" *ngFor="let row of keyboard; let i = index">
+        <button type="button" class="btn keybtn {{keyboard_status[keyboard[i][j]]}}"
+            *ngFor="let letter of row; let j = index">
+            {{keyboard[i][j]}}
+        </button>
+    </div>
+  </div>
+</div>

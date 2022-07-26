@@ -1,0 +1,38 @@
+.letter {
+  min-width: 58px;
+  max-width: 58px;
+  min-height: 55px;
+  max-height: 55px;
+  border: 1px solid #d3d6da;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+
+  font-size: 18px;
+
+  font-weight: bold;
+  font-family: monospace;
+  align-items: center;
+  position: relative;
+}
+
+.keybtn {
+  border: 1px solid #d3d6da;
+  border-radius: 5px;
+}
+
+.ok {
+  background-color: #6aaa64;
+  color: white;
+}
+
+.exists {
+  background-color: #c9b458;
+  color: white;
+}
+
+.no {
+  background-color: #86888a;
+  color: white;
+}
