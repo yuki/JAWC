@@ -6,12 +6,12 @@
 <div *ngIf="started;else elseblock">
   <div class="container mt-5">
     <div class="row tries" *ngFor="let try of tries; let i = index">
-        <app-word class="col"
-            [letter]="letter"
+        <app-letter class="col"
+            [letter]="tries[i][j]"
             [row]="i"
             [pos]="j"
             *ngFor="let position of positions; let j = index">
-        </app-word>
+        </app-letter>
     </div>
   </div>
 

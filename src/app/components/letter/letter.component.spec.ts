@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WordComponent } from './word.component';
+import { LetterComponent } from './letter.component';
 
-describe('WordComponent', () => {
-  let component: WordComponent;
-  let fixture: ComponentFixture<WordComponent>;
+describe('LetterComponent', () => {
+  let component: LetterComponent;
+  let fixture: ComponentFixture<LetterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WordComponent ]
+      declarations: [ LetterComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WordComponent);
+    fixture = TestBed.createComponent(LetterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

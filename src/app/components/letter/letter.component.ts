@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-word',
-  templateUrl: './word.component.html',
-  styleUrls: ['./word.component.css']
+  selector: 'app-letter',
+  templateUrl: './letter.component.html',
+  styleUrls: ['./letter.component.css']
 })
-export class WordComponent implements OnInit {
+export class LetterComponent implements OnInit {
 
   @Input() letter:string = '';
   @Input() row:any='';
