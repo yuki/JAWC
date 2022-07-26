@@ -121,6 +121,11 @@ export class AppComponent  {
       }
     }
 
+    // reset del teclado
+    for (let key of Object.keys(this.keyboard)) {
+      this.keyboard[key] = '';
+  }
+
     // cogemos una palabra aleatoria gracias a la función del fichero assets/js/dictionary.js
     this.word = get_word(this.conf_letters);
     // TODO: Sólo los hackers lo verán :p así que para debuggear es útil
