@@ -39,27 +39,55 @@ export class AppComponent  {
   }
 
 
-  public check_input() {
+  // vamos comprobando lo que se introduce en el campo de texto.
+  public check_input(event:any) {
     let word = (document.getElementById('word') as HTMLInputElement).value;
-    if (word.length > this.conf_letters || word.length<this.conf_letters) {
-      alert("Tienes que meter el número de letras exacto: "+this.conf_letters + " letras")
-    } else {
-      for (let pos = 0; pos < this.conf_letters; pos++) {
-        // this.tries[this.actual_try][pos] = word.substring(pos,pos+1);
-        this.tries[this.actual_try][pos] = new Array(2);
-      }
-      this.check_word(word);
-      this.actual_try +=1;
+
+    // rellenamos el array para que aparezcan las letras
+    for (let pos = 0; pos < this.conf_letters; pos++) {
+      this.tries[this.actual_try][pos] = new Array(2);
+      this.tries[this.actual_try][pos][0] = word.substring(pos,pos+1);
     }
-    (document.getElementById('word') as HTMLInputElement).value = '';
+
+    // sólo validamos la palabra si se da a enter y el número de letras es correcto
+    if (event.key == 'Enter') {
+      if (word.length == this.conf_letters ){
+        this.check_word(word);
+        this.actual_try +=1;
+        (document.getElementById('word') as HTMLInputElement).value = '';
+      }
+    }
+  }
+
+  /*
+    Comprueba letra a letra la palabra introducida para modificar el array que luego pinta
+    las letras.
+  */
+  public check_word(input_word:string) {
+    for (let pos = 0; pos < input_word.length; pos++) {
+      let letter=input_word.substring(pos,pos+1);
+      this.tries[this.actual_try][pos][0] = letter;
+
+      this.tries[this.actual_try][pos][1] = '';
+
+      if (letter == this.word.substring(pos,pos+1)){
+        this.tries[this.actual_try][pos][1] = 'ok';
+        continue;
+      }
+      if (this.word.includes(letter)){
+        this.tries[this.actual_try][pos][1] = 'exists';
+        continue;
+      }
+      this.tries[this.actual_try][pos][1] = 'no';
+    }
 
     /*
      FIXME: esto es una guarrada. En lugar de esperar 300ms habría que saber esperar a que la vista
      del hijo terminase de pintar para asegurar si el juego debe terminar o no.
      Pero como hace lo que necesito, ya se encargará mi "yo del futuro" de arreglarlo.
     */
-    setTimeout(() => {
-      if (word == this.word) {
+     setTimeout(() => {
+      if (input_word == this.word) {
         let play_again = confirm("HAS ACERTADO! Quieres volver a jugar");
         if (play_again) {
           this.reset_game();
@@ -72,28 +100,7 @@ export class AppComponent  {
           this.reset_game();
         }
       }
-    }, 300)
-
-
-  }
-
-  /*
-    Comprueba letra a letra la palabra introducida para modificar el array que luego pinta
-    las letras.
-  */
-  public check_word(input_word:string) {
-    for (let pos = 0; pos < this.conf_letters; pos++) {
-      let letter=input_word.substring(pos,pos+1);
-      this.tries[this.actual_try][pos][0] = letter;
-      this.tries[this.actual_try][pos][1] = 'no';
-      if (letter == this.word.substring(pos,pos+1)){
-        this.tries[this.actual_try][pos][1] = 'ok';
-        continue;
-      }
-      if (this.word.includes(letter)){
-        this.tries[this.actual_try][pos][1] = 'exists';
-      }
-    }
+    }, 500)
   }
 
   public reset_game() {
@@ -107,6 +114,7 @@ export class AppComponent  {
 
     // cogemos una palabra aleatoria gracias a la función del fichero assets/js/dictionary.js
     this.word = get_word(this.conf_letters);
+    // TODO: Sólo los hackers lo verán :p así que para debuggear es útil
     console.log(this.word);
 
     // reiniciamos el número de intentos

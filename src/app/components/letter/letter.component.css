@@ -7,7 +7,7 @@
   padding: 14px 20px;
   border-radius: 5px;
   font-size: 28px;
-  color: white;
+
   font-weight: bold;
   font-family: monospace;
   /* vertical alignment */
@@ -17,12 +17,15 @@
 
 .ok {
   background-color: #6aaa64;
+  color: white;
 }
 
 .exists {
   background-color: #c9b458;
+  color: white;
 }
 
 .no {
   background-color: #86888a;
+  color: white;
 }

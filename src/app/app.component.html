@@ -16,9 +16,9 @@
   <div class="container   d-flex  justify-content-center" id="formulario">
     <div class="row">
       <div class="mb-2 col">
-        <input type="text" class="form-control col-2" id="word" placeholder="palabra">
+        <input type="text" class="form-control col-2" id="word" placeholder="palabra" (keyup)="check_input($event)" [attr.maxlength]="conf_letters">
       </div>
-      <button type="button" class="btn btn-primary ps-6 col-4" (click)="check_input()">Probar</button>
+      <!-- <button type="button" class="btn btn-primary ps-6 col-4" (click)="check_input()">Probar</button> -->
     </div>
   </div>
 </div>
