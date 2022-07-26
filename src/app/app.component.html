@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="started;else elseblock">
-  <div class="container text-center p-2 col-7">
+  <div class="container text-center p-2 col-12">
     <div class="d-flex justify-content-center tries" *ngFor="let try of tries; let i = index">
         <app-letter class=""
             [letter]="tries[i][j]"
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="container mb-2 justify-content-center col-2">
+  <div class="container mb-2 justify-content-center col-12">
     <div class="row">
         <input hidden  type="text" class="form-control" id="word" placeholder="palabra con tilde" (keyup)="check_input($event.key)" [attr.maxlength]="conf_letters" autofocus>
     </div>
@@ -23,7 +23,7 @@
 </div>
 
 <ng-template #elseblock>
-  <div class="container text-center col-1">
+  <div class="container text-center col-4  col-md-2 col-xl-1">
     <div class="row">
       <div class="mt-5">
         <label for="tries" class="form-label">Reintentos</label>
