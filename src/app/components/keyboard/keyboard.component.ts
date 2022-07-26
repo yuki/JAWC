@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-keyboard',
@@ -8,17 +8,20 @@ import { Component, Input, OnInit } from '@angular/core';
 export class KeyboardComponent implements OnInit {
 
   @Input() keyboard_status:any = '';
+  @Output() public pulsado = new EventEmitter();
 
   keyboard:any[] = [
     ['Q','W','E','R','T','Y','U','I','O','P'],
     ['A','S','D','F','G','H','J','K','L','Ñ'],
-    ['Z','X','C','V','B','N','M']
+    ['ENTER','Z','X','C','V','B','N','M','DEL']
   ]
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.keyboard_status);
   }
 
+  public send_to_father(letter:string):void {
+    this.pulsado.emit(letter);
+  }
 }

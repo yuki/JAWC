@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <app-keyboard [keyboard_status]="keyboard"></app-keyboard>
+  <app-keyboard [keyboard_status]="keyboard" (pulsado)="check_pulsado($event)"></app-keyboard>
 </div>
 
 <ng-template #elseblock>

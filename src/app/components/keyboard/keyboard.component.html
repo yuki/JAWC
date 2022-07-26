@@ -1,7 +1,7 @@
 
 <div class="container text-center col-7">
-  <div class="" *ngFor="let row of keyboard; let i = index">
-    <button type="button" class="btn keybtn {{keyboard_status[keyboard[i][j]]}}"
+  <div class="fila_{{i}}" *ngFor="let row of keyboard; let i = index">
+    <button type="button" class="btn keybtn {{keyboard_status[keyboard[i][j]]}}" (click)="send_to_father(keyboard[i][j])"
         *ngFor="let letter of row; let j = index">
         {{keyboard[i][j]}}
     </button>
