@@ -1,20 +1,33 @@
 .keybtn {
-  min-width: 20px;
-  /* max-width: 10%; */
+  width: 100%;
+  max-width: 50px;
   min-height: 48px;
-  /* border: 1px solid #d3d6da; */
+  border: 1px solid #d3d6da;
   background-color: #d3d6da;
   border-radius: 5px;
-  margin: 5px;
-  padding: 5px;
 
   font-size: 18px;
   font-weight: bold;
   font-family: monospace;
+
+  justify-content:center;
+  align-items:center;
 }
 
+/* teclas especiales, para que no ocupen tanto */
 .Enter, .DEL {
   font-size:15px!important;
+  max-width: 78px;
+}
+
+/* Para las teclas con tilde */
+.fila_0 > .keybtn {
+  max-width: 105px;
+}
+
+.fila {
+  gap: 5px;
+  margin-bottom: 5px;
 }
 
 .ok {

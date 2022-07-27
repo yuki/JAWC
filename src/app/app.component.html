@@ -1,12 +1,12 @@
 <div class="text-center">
   <h1>{{title}}</h1>
-  <span class="subtitulo">(just another wordle clone)</span>
+  <span class="subtitulo">(Just Another Wordle Clone)</span>
 </div>
 
 <div *ngIf="started;else elseblock">
-  <div class="container text-center p-2 col-12">
-    <div class="d-flex justify-content-center tries" *ngFor="let try of tries; let i = index">
-        <app-letter class=""
+  <div class="container text-center p-2 col-12 col-md-4">
+    <div class="tries d-flex justify-content-center" style="grid-template-columns: repeat({{conf_letters}},auto)" *ngFor="let try of tries; let i = index">
+        <app-letter
             [letter]="tries[i][j]"
             *ngFor="let position of try; let j = index">
         </app-letter>

@@ -18,6 +18,7 @@ body {
 
 .tries{
   margin-bottom: 10px;
+  gap:5px;
 }
 
 #formulario {
