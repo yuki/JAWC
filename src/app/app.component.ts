@@ -1,8 +1,11 @@
 import { computeMsgId } from '@angular/compiler';
 import { Component} from '@angular/core';
 import { LetterComponent } from './components/letter/letter.component';
+// funciones de los ficheros javascript: FIXME: habría que mejorarlo.
 declare var get_word: any;
 declare var exists_word: any;
+declare var show_modal: any;
+declare var hide_modal: any;
 
 @Component({
   selector: 'app-root',
@@ -145,14 +148,10 @@ export class AppComponent  {
         }, 300)
       } else {
         // saca el error de que la palabra no existe
-        let el = document.createElement('div');
-        el.className = "alert alert-danger";
-        el.id = "alert";
-        el.textContent = "¡La palabra no existe!"
-        document.getElementById('alert_place')?.appendChild(el);
+        show_modal();
         setTimeout(() => {
-          document.getElementById('alert')?.remove();
-        }, 800)
+          hide_modal();
+        }, 2000)
       }
     }
   }
