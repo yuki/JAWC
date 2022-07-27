@@ -1,6 +1,8 @@
+import { computeMsgId } from '@angular/compiler';
 import { Component} from '@angular/core';
 import { LetterComponent } from './components/letter/letter.component';
 declare var get_word: any;
+declare var exists_word: any;
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,7 @@ export class AppComponent  {
   started = false;
 
   //variables de inicio
+  option_tries:Array<number> = [1,2,3,4,5,6,7,8,9,10,11,12]
   conf_tries:number = 6;
   conf_letters:number = 5;
   /*
@@ -89,56 +92,68 @@ export class AppComponent  {
   }
 
   /*
-   *  Comprueba letra a letra la palabra introducida para modificar el array que luego pinta
-   *  las letras.
+   *  Comprueba la palabra introducida.
+   *  =================================
+   *  Se asegura que se han metido todas las letras
+   *  y comprueba que la palabra existe en el diccionario
   */
   public check_word() {
-    if (this.actual_word.length == this.conf_letters ){
-      for (let pos = 0; pos < this.actual_word.length; pos++) {
-        let letter=this.actual_word.substring(pos,pos+1);
-        this.tries[this.actual_try][pos][0] = letter;
+    if (this.actual_word.length == this.conf_letters){
+      if (exists_word(this.actual_word.toLowerCase(),this.conf_letters)) {
+        for (let pos = 0; pos < this.actual_word.length; pos++) {
+          let letter=this.actual_word.substring(pos,pos+1);
+          this.tries[this.actual_try][pos][0] = letter;
 
-        this.tries[this.actual_try][pos][1] = '';
+          this.tries[this.actual_try][pos][1] = '';
 
-        if (letter == this.word.substring(pos,pos+1)){
-          this.tries[this.actual_try][pos][1] = 'ok';
-          this.keyboard[letter.toUpperCase()] = 'ok';
-          continue;
+          if (letter == this.word.substring(pos,pos+1)){
+            this.tries[this.actual_try][pos][1] = 'ok';
+            this.keyboard[letter.toUpperCase()] = 'ok';
+            continue;
+          }
+          if (this.word.includes(letter)){
+            this.tries[this.actual_try][pos][1] = 'exists';
+            this.keyboard[letter.toUpperCase()] = 'exists';
+            continue;
+          }
+          this.tries[this.actual_try][pos][1] = 'no';
+          this.keyboard[letter.toUpperCase()] = 'no';
         }
-        if (this.word.includes(letter)){
-          this.tries[this.actual_try][pos][1] = 'exists';
-          this.keyboard[letter.toUpperCase()] = 'exists';
-          continue;
-        }
-        this.tries[this.actual_try][pos][1] = 'no';
-        this.keyboard[letter.toUpperCase()] = 'no';
+        // sumamos el intento
+        this.actual_try +=1;
+          /*
+        FIXME: esto es una guarrada. En lugar de esperar 300ms habría que saber esperar a que la vista
+        del hijo terminase de pintar para asegurar si el juego debe terminar o no.
+        Pero como hace lo que necesito, ya se encargará mi "yo del futuro" de arreglarlo.
+        */
+        setTimeout(() => {
+          if (this.actual_word == this.word) {
+            let play_again = confirm("¡HAS ACERTADO! ¿Quieres volver a jugar?");
+            if (play_again) {
+              this.reset_game();
+            }
+          } else {
+            this.actual_word = '';
+          }
+
+          if (this.actual_try == this.conf_tries) {
+            let play_again = confirm("¡Has fallado! ¿Quieres volver a jugar?");
+            if (play_again) {
+              this.reset_game();
+            }
+          }
+        }, 300)
+      } else {
+        // saca el error de que la palabra no existe
+        let el = document.createElement('div');
+        el.className = "alert alert-danger";
+        el.id = "alert";
+        el.textContent = "¡La palabra no existe!"
+        document.getElementById('alert_place')?.appendChild(el);
+        setTimeout(() => {
+          document.getElementById('alert')?.remove();
+        }, 800)
       }
-      // sumamos el intento
-      this.actual_try +=1;
-
-
-      /*
-      FIXME: esto es una guarrada. En lugar de esperar 300ms habría que saber esperar a que la vista
-      del hijo terminase de pintar para asegurar si el juego debe terminar o no.
-      Pero como hace lo que necesito, ya se encargará mi "yo del futuro" de arreglarlo.
-      */
-      setTimeout(() => {
-        if (this.actual_word == this.word) {
-          let play_again = confirm("HAS ACERTADO! Quieres volver a jugar");
-          if (play_again) {
-            this.reset_game();
-          }
-        } else {
-          this.actual_word = '';
-        }
-
-        if (this.actual_try == this.conf_tries) {
-          let play_again = confirm("Has fallado! Quieres volver a jugar");
-          if (play_again) {
-            this.reset_game();
-          }
-        }
-      }, 300)
     }
   }
 
