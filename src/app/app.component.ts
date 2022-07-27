@@ -64,8 +64,10 @@ export class AppComponent  {
   */
   public check_input(key:any) {
     if (this.started){
-
-      if (key != 'Enter' && key != 'Backspace' && key != 'DEL' && this.actual_word.length<this.conf_letters) {
+      // ignoramos Enter, Borrar, sólo permitimos las teclas y sólo si el tamaño de la palabra es menor a lo que se quiere.
+      // El "key.length == 1" es para ignorar teclas especiales. FIXME: habría que ver cómo admitir las tildes.
+      // TODO: se podría poner una REGEXP para que sólo se acepten letras...
+      if (key != 'Enter' && key != 'Backspace' && key != 'DEL' && key.length == 1 && this.actual_word.length<this.conf_letters) {
         this.actual_word += key;
       } else if (key == 'Backspace' || key == 'DEL'){
         this.actual_word = this.actual_word.substring(0,this.actual_word.length-1)
