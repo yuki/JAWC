@@ -14,12 +14,9 @@ function get_word(wlength){
 
 //devuelve si existe la palabra
 function exists_word(word,wlength){
-  console.log(word);
   if (myDictionary[wlength].indexOf(word) == -1) {
-    console.log("devolvemos false");
     return false;
   }
-  console.log("devolvemos true");
   return true;
 }
 
