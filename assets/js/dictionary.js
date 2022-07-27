@@ -12,6 +12,17 @@ function get_word(wlength){
   return myDictionary[wlength][Math.floor(Math.random()*total)];
 }
 
+//devuelve si existe la palabra
+function exists_word(word,wlength){
+  console.log(word);
+  if (myDictionary[wlength].indexOf(word) == -1) {
+    console.log("devolvemos false");
+    return false;
+  }
+  console.log("devolvemos true");
+  return true;
+}
+
 // Dejo todos los huecos del array, porque estoy pensando en hacer un Easter Egg basado en ello.
 myDictionary =  [
   [], // para 0 letras , no ponemos nada
