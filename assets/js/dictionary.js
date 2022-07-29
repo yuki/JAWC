@@ -8,7 +8,7 @@
 
 // función que recibe la longitud y devuelve una palabra aleatoria
 function get_word(wlength){
-  total = myDictionary[wlength].length;
+  let total = myDictionary[wlength].length;
   return myDictionary[wlength][Math.floor(Math.random()*total)];
 }
 

@@ -6,6 +6,6 @@ function show_modal() {
 }
 
 function hide_modal() {
-  b = document.getElementById('closeModal');
+  let b = document.getElementById('closeModal');
   b.click();
 }
