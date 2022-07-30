@@ -1,12 +1,13 @@
 .keybtn {
   width: 100%;
   max-width: 50px;
+  min-width: 20px;
   min-height: 48px;
   border: 1px solid #d3d6da;
   background-color: #d3d6da;
   border-radius: 5px;
 
-  font-size: 18px;
+  font-size: 100%;
   font-weight: bold;
   font-family: monospace;
 
@@ -16,7 +17,8 @@
 
 /* teclas especiales, para que no ocupen tanto */
 .Enter, .DEL {
-  font-size:15px!important;
+  /* font-size:1%!important; */
+  min-width: 50px;
   max-width: 78px;
 }
 
